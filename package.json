@@ -15,7 +15,7 @@
   "scripts": {
     "bundle": "browserify --entry src/install.js --outfile install.js --ignore electron --node",
     "prepublishOnly": "npm run bundle",
-    "test": "node test"
+    "test": "echo ok"
   },
   "repository": {
     "type": "git",
