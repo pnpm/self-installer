@@ -15,7 +15,7 @@
   "scripts": {
     "bundle": "browserify --entry src/install.js --outfile install.js --ignore electron --node",
     "prepublishOnly": "npm run bundle",
-    "test": "echo ok"
+    "test": "mos t"
   },
   "repository": {
     "type": "git",
@@ -36,8 +36,18 @@
     "got": "^8.0.1",
     "is-windows": "^1.0.1",
     "isexe": "^2.0.0",
+    "mos": "^2.0.0-alpha.3",
+    "mos-plugin-readme": "^1.0.4",
     "tape": "^4.8.0",
     "tempy": "^0.2.1",
     "unpack-stream": "^3.0.0"
+  },
+  "mos": {
+    "plugins": [
+      "readme"
+    ],
+    "installation": {
+      "useShortAlias": true
+    }
   }
 }
