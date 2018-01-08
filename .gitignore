@@ -17,3 +17,4 @@ _docpress
 .vscode/
 
 install.js
+!src/install.js

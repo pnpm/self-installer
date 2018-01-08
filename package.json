@@ -13,9 +13,9 @@
     "install.js"
   ],
   "scripts": {
-    "bundle": "browserify --entry src/install.js --outfile install.js --ignore electron --node",
+    "bundle": "browserify --entry src/install.js --outfile install.js --ignore electron --node --ignore bluebird --ignore supports-color",
     "prepublishOnly": "npm run bundle",
-    "test": "mos t"
+    "test": "node test && mos t"
   },
   "repository": {
     "type": "git",
@@ -30,9 +30,11 @@
     "node": ">=4"
   },
   "devDependencies": {
-    "browserify": "^14.4.0",
+    "@pnpm/logger": "^1.0.0",
+    "@pnpm/npm-resolver": "^0.3.7",
+    "browserify": "^15.0.0",
     "cmd-shim": "^2.0.2",
-    "get-npm-tarball-url": "^2.0.0",
+    "get-npm-tarball-url": "^2.0.1",
     "got": "^8.0.1",
     "is-windows": "^1.0.1",
     "isexe": "^2.0.0",
