@@ -15,7 +15,7 @@
   "scripts": {
     "bundle": "browserify --entry src/install.js --outfile install.js --ignore electron --node --ignore bluebird --ignore supports-color",
     "prepublishOnly": "npm run bundle",
-    "test": "node test && mos t"
+    "test": "preview && node test && mos t"
   },
   "repository": {
     "type": "git",
@@ -34,12 +34,14 @@
     "@pnpm/npm-resolver": "^0.3.7",
     "browserify": "^15.0.0",
     "cmd-shim": "^2.0.2",
+    "execa": "^0.8.0",
     "get-npm-tarball-url": "^2.0.1",
     "got": "^8.0.1",
     "is-windows": "^1.0.1",
     "isexe": "^2.0.0",
     "mos": "^2.0.0-alpha.3",
     "mos-plugin-readme": "^1.0.4",
+    "package-preview": "^1.0.3",
     "tape": "^4.8.0",
     "tempy": "^0.2.1",
     "unpack-stream": "^3.0.0"

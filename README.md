@@ -12,20 +12,20 @@ Use [unpkg](https://unpkg.com/) to access the installation script and set up pnp
 
     curl -L https://unpkg.com/@pnpm/self-installer | node
 
+## Configuring
+
 The above script will install the latest version of pnpm but you may also install
-a specific version:
+a specific version by specifying the `PNPM_VERSION` environment variable:
 
-    curl -L https://unpkg.com/@pnpm/self-installer@1.16.2 | node
+    PNPM_VERSION=1.16.2 curl -L https://unpkg.com/@pnpm/self-installer | node
 
-You can also use a semver range:
+Here are all the supported environment variables that can influence pnpm's installation:
 
-    curl -L https://unpkg.com/@pnpm/self-installer@1 | node
-
-Or a tag:
-
-    curl -L https://unpkg.com/@pnpm/self-installer@next | node
-
-**NOTE:** Installation by version or range works from `1.16.2` only.
+| Env variable      | Type                  | Description                                                                             | Example                           |
+| ----------------- | --------------------- | --------------------------------------------------------------------------------------- | --------------------------------- |
+| **PNPM_VERSION**  | _version, range, tag_ | `latest` by default. The pnpm version to be installed<br>(not older than `pnpm@1.16.2`) | `PNPM_VERSION=next`               |
+| **PNPM_DEST**     | _Path_                | The directory into which pnpm's files will be downloaded.                               | `PNPM_DEST=node_modules/pnpm`     |
+| **PNPM_BIN_DEST** | _Path_                | `process.execPath` by default. The directory into which pnpm's bins will be linked.     | `PNPM_BIN_DEST=node_modules/.bin` |
 
 ## License
 
