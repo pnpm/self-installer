@@ -18,7 +18,7 @@ test('installation to custom destination', t => {
     PNPM_DEST: dest,
     PNPM_BIN_DEST: binPath,
   }
-  execa('node', [installScript], {env})
+  execa('node', [installScript], {env, stdout: 'inherit'})
     .then(() => {
       t.ok(isExecutable.sync(path.join(binPath, `pnpm${exeExtension}`)), 'pnpm is executable')
       t.ok(isExecutable.sync(path.join(binPath, `pnpx${exeExtension}`)), 'pnpx is executable')
@@ -36,7 +36,7 @@ test('installation to custom destination of a specific version', t => {
     PNPM_BIN_DEST: binPath,
     PNPM_VERSION: '1.24.0',
   }
-  execa('node', [installScript], {env})
+  execa('node', [installScript], {env, stdout: 'inherit'})
     .then(() => {
       t.ok(isExecutable.sync(path.join(binPath, `pnpm${exeExtension}`)), 'pnpm is executable')
       t.ok(isExecutable.sync(path.join(binPath, `pnpx${exeExtension}`)), 'pnpx is executable')
