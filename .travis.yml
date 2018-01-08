@@ -6,7 +6,7 @@ node_js:
   - 9
 sudo: false
 before_install:
-  - curl -L https://unpkg.com/@pnpm/self-installer | node
+  - curl -L https://unpkg.com/@pnpm/self-installer@next | node
 install:
   - pnpm i
 script:
