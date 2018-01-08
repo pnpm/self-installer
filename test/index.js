@@ -45,3 +45,21 @@ test('installation to custom destination of a specific version', t => {
     })
     .catch(t.end)
 })
+
+test('installation to custom destination from custom registry', t => {
+  const dest = tempy.directory()
+  const binPath = path.join(dest, 'bin')
+  fs.mkdirSync(binPath)
+  const env = {
+    PNPM_DEST: dest,
+    PNPM_BIN_DEST: binPath,
+    PNPM_REGISTRY: 'https://registry.node-modules.io/',
+  }
+  execa('node', [installScript], {env, stdout: 'inherit'})
+    .then(() => {
+      t.ok(isExecutable.sync(path.join(binPath, `pnpm${exeExtension}`)), 'pnpm is executable')
+      t.ok(isExecutable.sync(path.join(binPath, `pnpx${exeExtension}`)), 'pnpx is executable')
+      t.end()
+    })
+    .catch(t.end)
+})

@@ -11,12 +11,11 @@ const tempy = require('tempy')
 
 module.exports = installTo
 
-function installTo (dest, binPath, pref) {
+function installTo (dest, binPath, pref, registry) {
   const npmBin = path.join(dest, 'node_modules', 'not-bundled-npm', 'bin', 'npm-cli')
   const pnpmBin = path.join(dest, 'lib/bin/pnpm.js')
   const pnpxBin = path.join(dest, 'lib/bin/pnpx.js')
 
-  const registry = 'https://registry.npmjs.org/'
   const resolvePackage = createResolver({
     registry,
     rawNpmConfig: { registry },
