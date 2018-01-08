@@ -21,12 +21,12 @@ a specific version by specifying the `PNPM_VERSION` environment variable:
 
 Here are all the supported environment variables that can influence pnpm's installation:
 
-| Env variable      | Type                  | Description                                                                             | Example                                           |
-| ----------------- | --------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------- |
-| **PNPM_VERSION**  | _version, range, tag_ | `latest` by default. The pnpm version to be installed<br>(not older than `pnpm@1.16.2`) | `PNPM_VERSION=next`                               |
-| **PNPM_DEST**     | _Path_                | The directory into which pnpm's files will be downloaded.                               | `PNPM_DEST=node_modules/pnpm`                     |
-| **PNPM_BIN_DEST** | _Path_                | `process.execPath` by default. The directory into which pnpm's bins will be linked.     | `PNPM_BIN_DEST=node_modules/.bin`                 |
-| **PNPM_REGISTRY** | _URL_                 | `https://registry.npmjs.org/` by default. The registry to be used for downloading pnpm  | `PNPM_REGISTRY=https://registry.node-modules.io/` |
+| Env variable      | Type                  | Description                                                                              | Example                                           |
+| ----------------- | --------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| **PNPM_VERSION**  | _version, range, tag_ | `latest` by default. The pnpm version to be installed.<br>(not older than `pnpm@1.16.2`) | `PNPM_VERSION=next`                               |
+| **PNPM_DEST**     | _Path_                | The directory into which pnpm's files will be downloaded.                                | `PNPM_DEST=node_modules/pnpm`                     |
+| **PNPM_BIN_DEST** | _Path_                | `process.execPath` by default. The directory into which pnpm's bins will be linked.      | `PNPM_BIN_DEST=node_modules/.bin`                 |
+| **PNPM_REGISTRY** | _URL_                 | `https://registry.npmjs.org/` by default. The registry to be used for downloading pnpm.  | `PNPM_REGISTRY=https://registry.node-modules.io/` |
 
 ## License
 
