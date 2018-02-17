@@ -8,11 +8,11 @@ const getNpmTarballUrl = require('get-npm-tarball-url').default
 const cmdShim = require('cmd-shim')
 const createResolver = require('@pnpm/npm-resolver').default
 const tempy = require('tempy')
+const semver = require('semver')
 
 module.exports = installTo
 
 function installTo (dest, binPath, pref, registry) {
-  const npmBin = path.join(dest, 'node_modules', 'not-bundled-npm', 'bin', 'npm-cli')
   const pnpmBin = path.join(dest, 'lib/bin/pnpm.js')
   const pnpxBin = path.join(dest, 'lib/bin/pnpx.js')
 
@@ -25,12 +25,15 @@ function installTo (dest, binPath, pref, registry) {
   })
   return resolvePackage({alias: 'pnpm', pref}, {registry})
     .then(res => {
+      if (semver.gte(res.package.version, '1.33.0')) {
+        return downloadTarball(res.resolution.tarball, res.package.version)
+      }
       return resolvePackage({alias: '@pnpm/bundled', pref: res.package.version}, {registry})
-        .then(bundledRes => downloadTarball(bundledRes.resolution.tarball))
-        .catch(err => downloadTarball(res.resolution.tarball))
+        .then(bundledRes => downloadTarball(bundledRes.resolution.tarball, bundledRes.package.version))
+        .catch(err => downloadTarball(res.resolution.tarball, res.package.version))
     })
 
-  function downloadTarball (tarball) {
+  function downloadTarball (tarball, version) {
     console.log(`Downloading ${tarball}`)
     const stream = got.stream(tarball)
     return unpackStream.remote(stream, dest)
@@ -46,7 +49,10 @@ function installTo (dest, binPath, pref, registry) {
                 reject(err)
                 return
               }
-              spawnSync('node', [npmBin, 'rebuild', 'drivelist'], {cwd: dest, stdio: 'inherit'})
+              if (semver.lt(version, '1.33.0')) {
+                const npmBin = path.join(dest, 'node_modules', 'not-bundled-npm', 'bin', 'npm-cli')
+                spawnSync('node', [npmBin, 'rebuild', 'drivelist'], {cwd: dest, stdio: 'inherit'})
+              }
               resolve()
             })
           })
