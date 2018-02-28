@@ -9,10 +9,21 @@ const cmdShim = require('cmd-shim')
 const createResolver = require('@pnpm/npm-resolver').default
 const tempy = require('tempy')
 const semver = require('semver')
+const which = require('which')
 
 module.exports = installTo
 
-function installTo (dest, binPath, pref, registry) {
+function installTo (opts) {
+  opts = opts || {}
+  let execPath
+  if (!opts.dest || !opts.binPath) {
+    execPath = which.sync(process.argv[0])
+  }
+  const dest = opts.dest || path.join(execPath, '../../lib/node_modules/pnpm')
+  const binPath = opts.binPath || path.dirname(execPath)
+  const registry = opts.registry
+  const version = opts.version
+
   const pnpmBin = path.join(dest, 'lib/bin/pnpm.js')
   const pnpxBin = path.join(dest, 'lib/bin/pnpx.js')
 
@@ -23,7 +34,7 @@ function installTo (dest, binPath, pref, registry) {
     dryRun: true, // nothing will be written to the store
     store: tempy.directory(), // a silly hack because store is required
   })
-  return resolvePackage({alias: 'pnpm', pref}, {registry})
+  return resolvePackage({alias: 'pnpm', pref: version}, {registry})
     .then(res => {
       if (semver.gte(res.package.version, '1.33.0')) {
         return downloadTarball(res.resolution.tarball, res.package.version)
