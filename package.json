@@ -1,6 +1,6 @@
 {
   "name": "@pnpm/self-installer",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Installs pnpm",
   "author": {
     "name": "Zoltan Kochan",
