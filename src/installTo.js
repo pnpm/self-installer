@@ -15,12 +15,23 @@ module.exports = installTo
 
 function installTo (opts) {
   opts = opts || {}
-  let execPath
-  if (!opts.dest || !opts.binPath) {
-    execPath = which.sync(process.argv[0])
+  let dest = opts.dest
+  let binPath = opts.binPath
+  if (!dest || !binPath) {
+    if (process.platform === 'win32' && process.env.APPDATA) {
+      const globalPrefix = path.join(process.env.APPDATA, 'npm')
+      dest = path.join(globalPrefix, 'node_modules', 'pnpm')
+      binPath = globalPrefix
+    } else {
+      let execPath = which.sync(process.argv[0])
+      if (!dest) {
+        dest = path.join(execPath, '../../lib/node_modules/pnpm')
+      }
+      if (!binPath) {
+        binPath = path.dirname(execPath)
+      }
+    }
   }
-  const dest = opts.dest || path.join(execPath, '../../lib/node_modules/pnpm')
-  const binPath = opts.binPath || path.dirname(execPath)
   const registry = opts.registry
   const version = opts.version
 
