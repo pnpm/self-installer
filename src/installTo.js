@@ -36,13 +36,6 @@ function installTo (opts) {
   const version = opts.version
 
   let pnpmBin, pnpxBin
-  if (semver.gte(res.package.version, '2.17.0')) {
-    pnpmBin = path.join(dest, 'bin/pnpm.js')
-    pnpxBin = path.join(dest, 'bin/pnpx.js')
-  } else {
-    pnpmBin = path.join(dest, 'lib/bin/pnpm.js')
-    pnpxBin = path.join(dest, 'lib/bin/pnpx.js')
-  }
 
   const resolvePackage = createResolver({
     registry,
@@ -53,6 +46,13 @@ function installTo (opts) {
   })
   return resolvePackage({alias: 'pnpm', pref: version}, {registry})
     .then(res => {
+      if (semver.gte(res.package.version, '2.17.0')) {
+        pnpmBin = path.join(dest, 'bin/pnpm.js')
+        pnpxBin = path.join(dest, 'bin/pnpx.js')
+      } else {
+        pnpmBin = path.join(dest, 'lib/bin/pnpm.js')
+        pnpxBin = path.join(dest, 'lib/bin/pnpx.js')
+      }
       if (semver.gte(res.package.version, '1.33.0')) {
         return downloadTarball(res.resolution.tarball, res.package.version)
       }
