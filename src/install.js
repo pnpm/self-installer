@@ -18,6 +18,8 @@ function getDefaultVersion () {
   switch (nodeMajor) {
     case 4:
       return 'latest-1'
+    case 6:
+      return 'latest-2'
     default:
       if (nodeMajor < 4) throw new Error('pnpm requires at least Node.js v4')
       return 'latest'
