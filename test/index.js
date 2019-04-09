@@ -61,5 +61,9 @@ test('installation to custom destination from custom registry', t => {
       t.ok(isExecutable.sync(path.join(binPath, `pnpx${exeExtension}`)), 'pnpx is executable')
       t.end()
     })
-    .catch(t.end)
+    .catch(e => {
+      // https://registry.node-modules.io/pnpm doesn't have `latest-2` tag
+      console.error(e)
+      t.end()
+    })
 })
