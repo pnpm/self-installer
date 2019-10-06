@@ -18,5 +18,6 @@ function getDefaultVersion () {
   if (nodeMajor < 4) throw new Error('pnpm requires at least Node.js v4')
   if (nodeMajor < 6) return 'latest-1'
   if (nodeMajor < 8) return 'latest-2'
+  if (nodeMajor < 10) return 'latest-3'
   return 'latest'
 }
