@@ -16,5 +16,4 @@ _docpress
 # Visual Studio Code configs
 .vscode/
 
-install.js
 !src/install.js
