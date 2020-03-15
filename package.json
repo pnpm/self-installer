@@ -8,8 +8,10 @@
     "url": "https://www.kochan.io/",
     "twitter": "ZoltanKochan"
   },
+  "bin": "bin.js",
   "main": "install.js",
   "files": [
+    "bin.js",
     "install.js"
   ],
   "scripts": {
