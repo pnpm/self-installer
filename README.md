@@ -8,16 +8,14 @@
 
 ## Usage
 
-Use [unpkg](https://unpkg.com/) to access the installation script and set up pnpm:
-
-    curl -L https://unpkg.com/@pnpm/self-installer | node
+    curl -L https://raw.githubusercontent.com/pnpm/self-installer/master/install.js | node
 
 ## Configuring
 
 The above script will install the latest version of pnpm but you may also install
 a specific version by specifying the `PNPM_VERSION` environment variable:
 
-    curl -L https://unpkg.com/@pnpm/self-installer | PNPM_VERSION=1.16.2 node
+    curl -L https://raw.githubusercontent.com/pnpm/self-installer/master/install.js | PNPM_VERSION=1.16.2 node
 
 Here are all the supported environment variables that can influence pnpm's installation:
 
