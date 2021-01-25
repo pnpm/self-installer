@@ -1,3 +1,6 @@
+**WARNING: This installation method is not supported anymore.<br>
+Visit the [installation page of pnpm](https://pnpm.js.org/en/installation) to see the currently recommended installation technics.**
+
 # @pnpm/self-installer
 
 > Installs pnpm
