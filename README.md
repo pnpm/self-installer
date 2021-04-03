@@ -1,5 +1,5 @@
 **WARNING: This installation method is not supported anymore.<br>
-Visit the [installation page of pnpm](https://pnpm.js.org/en/installation) to see the currently recommended installation technics.**
+Visit the [installation page of pnpm](https://pnpm.io/installation) to see the currently recommended installation technics.**
 
 ***
 
