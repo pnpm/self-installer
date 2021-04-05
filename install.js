@@ -36036,7 +36036,10 @@ function installTo (opts) {
   })
   return resolvePackage({alias: 'pnpm', pref: version}, {registry})
     .then(res => {
-      if (semver.gte(res.package.version, '2.17.0')) {
+      if (semver.gte(res.package.version, '6.0.0-rc.0')) {
+        pnpmBin = path.join(dest, 'bin/pnpm.cjs')
+        pnpxBin = path.join(dest, 'bin/pnpx.cjs')
+      } else if (semver.gte(res.package.version, '2.17.0')) {
         pnpmBin = path.join(dest, 'bin/pnpm.js')
         pnpxBin = path.join(dest, 'bin/pnpx.js')
       } else {
