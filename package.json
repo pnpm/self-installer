@@ -17,7 +17,7 @@
   "scripts": {
     "bundle": "browserify --entry src/install.js --outfile install.js --ignore electron --node --ignore bluebird --ignore supports-color --ignore worker_threads",
     "prepublishOnly": "npm run bundle",
-    "test": "preview && node test && mos t"
+    "test": "preview && node test"
   },
   "repository": {
     "type": "git",

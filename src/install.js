@@ -19,5 +19,6 @@ function getDefaultVersion () {
   if (nodeMajor < 6) return 'latest-1'
   if (nodeMajor < 8) return 'latest-2'
   if (nodeMajor < 10) return 'latest-3'
+  if (nodeMajor < 12) return 'latest-5'
   return 'latest'
 }

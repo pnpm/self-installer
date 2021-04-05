@@ -2634,7 +2634,7 @@ var bzip2 = function () {
 
 module.exports = bzip2
 
-},{"is-bzip2":143,"peek-stream":201,"pumpify":212,"through2":255,"unbzip2-stream":260}],30:[function(require,module,exports){
+},{"is-bzip2":143,"peek-stream":201,"pumpify":212,"through2":256,"unbzip2-stream":260}],30:[function(require,module,exports){
 'use strict'
 
 const BB = require('bluebird')
@@ -3645,7 +3645,7 @@ module.exports.setLocale = locale => {
   y18n.setLocale(locale)
 }
 
-}).call(this,"/src/pnpm/self-installer/node_modules/.pnpm/registry.npmjs.org/cacache/10.0.4/node_modules/cacache/lib/util")
+}).call(this,"/home/zoli/src/pnpm/self-installer/node_modules/.pnpm/registry.npmjs.org/cacache/10.0.4/node_modules/cacache/lib/util")
 },{"path":undefined,"y18n":276}],43:[function(require,module,exports){
 'use strict'
 
@@ -9222,7 +9222,7 @@ function handleError (writeStream) {
   }
 }
 
-}).call(this,"/src/pnpm/self-installer/node_modules/.pnpm/registry.npmjs.org/copy-concurrently/1.0.5/node_modules/fs-write-stream-atomic/index.js")
+}).call(this,"/home/zoli/src/pnpm/self-installer/node_modules/.pnpm/registry.npmjs.org/copy-concurrently/1.0.5/node_modules/fs-write-stream-atomic/index.js")
 },{"crypto":undefined,"graceful-fs":103,"iferr":134,"imurmurhash":135,"readable-stream":223,"util":undefined}],91:[function(require,module,exports){
 module.exports = realpath
 realpath.realpath = realpath
@@ -12896,7 +12896,7 @@ var gunzip = function (maxRecursion) {
 
 module.exports = gunzip
 
-},{"is-deflate":144,"is-gzip":145,"peek-stream":201,"pumpify":212,"through2":255,"zlib":undefined}],107:[function(require,module,exports){
+},{"is-deflate":144,"is-gzip":145,"peek-stream":201,"pumpify":212,"through2":256,"zlib":undefined}],107:[function(require,module,exports){
 /**
  * @file Tests if ES6 Symbol is supported.
  * @version 1.4.2
@@ -21777,9 +21777,9 @@ module.exports.from = require('from2')
 module.exports.to = require('flush-write-stream')
 module.exports.parallel = require('parallel-transform')
 
-},{"concat-stream":55,"duplexify":75,"end-of-stream":79,"flush-write-stream":87,"from2":88,"parallel-transform":198,"pump":210,"pumpify":212,"stream-each":243,"through2":255}],173:[function(require,module,exports){
+},{"concat-stream":55,"duplexify":75,"end-of-stream":79,"flush-write-stream":87,"from2":88,"parallel-transform":198,"pump":210,"pumpify":212,"stream-each":243,"through2":256}],173:[function(require,module,exports){
 arguments[4][172][0].apply(exports,arguments)
-},{"concat-stream":55,"dup":172,"duplexify":75,"end-of-stream":79,"flush-write-stream":87,"from2":88,"parallel-transform":198,"pump":211,"pumpify":212,"stream-each":243,"through2":255}],174:[function(require,module,exports){
+},{"concat-stream":55,"dup":172,"duplexify":75,"end-of-stream":79,"flush-write-stream":87,"from2":88,"parallel-transform":198,"pump":211,"pumpify":212,"stream-each":243,"through2":256}],174:[function(require,module,exports){
 var path = require('path');
 var fs = require('fs');
 var _0777 = parseInt('0777', 8);
@@ -22316,7 +22316,7 @@ function serialize (opts) {
   })
 }
 
-},{"json-stringify-safe":156,"os":undefined,"split2":241,"through2":255}],179:[function(require,module,exports){
+},{"json-stringify-safe":156,"os":undefined,"split2":241,"through2":256}],179:[function(require,module,exports){
 // taken from https://github.com/npm/npm/blob/master/lib/config/nerf-dart.js
 // originally from npm http://npmjs.com/
 
@@ -24532,7 +24532,7 @@ var peek = function(opts, onpeek) {
 
 module.exports = peek
 
-},{"buffer-from":28,"duplexify":75,"through2":255}],202:[function(require,module,exports){
+},{"buffer-from":28,"duplexify":75,"through2":256}],202:[function(require,module,exports){
 'use strict';
 
 const processFn = (fn, opts) => function () {
@@ -31292,7 +31292,7 @@ function split (matcher, mapper, options) {
 
 module.exports = split
 
-},{"string_decoder":undefined,"through2":255}],242:[function(require,module,exports){
+},{"string_decoder":undefined,"through2":256}],242:[function(require,module,exports){
 'use strict'
 
 const Buffer = require('safe-buffer').Buffer
@@ -33283,104 +33283,6 @@ Object.defineProperty(module.exports, 'root', {
 });
 
 },{"fs":undefined,"path":undefined,"temp-dir":253,"unique-string":265}],255:[function(require,module,exports){
-var Transform = require('readable-stream').Transform
-  , inherits  = require('util').inherits
-  , xtend     = require('xtend')
-
-function DestroyableTransform(opts) {
-  Transform.call(this, opts)
-  this._destroyed = false
-}
-
-inherits(DestroyableTransform, Transform)
-
-DestroyableTransform.prototype.destroy = function(err) {
-  if (this._destroyed) return
-  this._destroyed = true
-  
-  var self = this
-  process.nextTick(function() {
-    if (err)
-      self.emit('error', err)
-    self.emit('close')
-  })
-}
-
-// a noop _transform function
-function noop (chunk, enc, callback) {
-  callback(null, chunk)
-}
-
-
-// create a new export function, used by both the main export and
-// the .ctor export, contains common logic for dealing with arguments
-function through2 (construct) {
-  return function (options, transform, flush) {
-    if (typeof options == 'function') {
-      flush     = transform
-      transform = options
-      options   = {}
-    }
-
-    if (typeof transform != 'function')
-      transform = noop
-
-    if (typeof flush != 'function')
-      flush = null
-
-    return construct(options, transform, flush)
-  }
-}
-
-
-// main export, just make me a transform stream!
-module.exports = through2(function (options, transform, flush) {
-  var t2 = new DestroyableTransform(options)
-
-  t2._transform = transform
-
-  if (flush)
-    t2._flush = flush
-
-  return t2
-})
-
-
-// make me a reusable prototype that I can `new`, or implicitly `new`
-// with a constructor call
-module.exports.ctor = through2(function (options, transform, flush) {
-  function Through2 (override) {
-    if (!(this instanceof Through2))
-      return new Through2(override)
-
-    this.options = xtend(options, override)
-
-    DestroyableTransform.call(this, this.options)
-  }
-
-  inherits(Through2, DestroyableTransform)
-
-  Through2.prototype._transform = transform
-
-  if (flush)
-    Through2.prototype._flush = flush
-
-  return Through2
-})
-
-
-module.exports.obj = through2(function (options, transform, flush) {
-  var t2 = new DestroyableTransform(xtend({ objectMode: true, highWaterMark: 16 }, options))
-
-  t2._transform = transform
-
-  if (flush)
-    t2._flush = flush
-
-  return t2
-})
-
-},{"readable-stream":223,"util":undefined,"xtend":275}],256:[function(require,module,exports){
 var Stream = require('stream')
 
 // through
@@ -33490,7 +33392,105 @@ function through (write, end, opts) {
 }
 
 
-},{"stream":undefined}],257:[function(require,module,exports){
+},{"stream":undefined}],256:[function(require,module,exports){
+var Transform = require('readable-stream').Transform
+  , inherits  = require('util').inherits
+  , xtend     = require('xtend')
+
+function DestroyableTransform(opts) {
+  Transform.call(this, opts)
+  this._destroyed = false
+}
+
+inherits(DestroyableTransform, Transform)
+
+DestroyableTransform.prototype.destroy = function(err) {
+  if (this._destroyed) return
+  this._destroyed = true
+  
+  var self = this
+  process.nextTick(function() {
+    if (err)
+      self.emit('error', err)
+    self.emit('close')
+  })
+}
+
+// a noop _transform function
+function noop (chunk, enc, callback) {
+  callback(null, chunk)
+}
+
+
+// create a new export function, used by both the main export and
+// the .ctor export, contains common logic for dealing with arguments
+function through2 (construct) {
+  return function (options, transform, flush) {
+    if (typeof options == 'function') {
+      flush     = transform
+      transform = options
+      options   = {}
+    }
+
+    if (typeof transform != 'function')
+      transform = noop
+
+    if (typeof flush != 'function')
+      flush = null
+
+    return construct(options, transform, flush)
+  }
+}
+
+
+// main export, just make me a transform stream!
+module.exports = through2(function (options, transform, flush) {
+  var t2 = new DestroyableTransform(options)
+
+  t2._transform = transform
+
+  if (flush)
+    t2._flush = flush
+
+  return t2
+})
+
+
+// make me a reusable prototype that I can `new`, or implicitly `new`
+// with a constructor call
+module.exports.ctor = through2(function (options, transform, flush) {
+  function Through2 (override) {
+    if (!(this instanceof Through2))
+      return new Through2(override)
+
+    this.options = xtend(options, override)
+
+    DestroyableTransform.call(this, this.options)
+  }
+
+  inherits(Through2, DestroyableTransform)
+
+  Through2.prototype._transform = transform
+
+  if (flush)
+    Through2.prototype._flush = flush
+
+  return Through2
+})
+
+
+module.exports.obj = through2(function (options, transform, flush) {
+  var t2 = new DestroyableTransform(xtend({ objectMode: true, highWaterMark: 16 }, options))
+
+  t2._transform = transform
+
+  if (flush)
+    t2._flush = flush
+
+  return t2
+})
+
+},{"readable-stream":223,"util":undefined,"xtend":275}],257:[function(require,module,exports){
 'use strict';
 
 module.exports = function (req, time) {
@@ -34289,7 +34289,7 @@ function unbzip2Stream() {
 }
 
 
-},{"./lib/bit_iterator":261,"./lib/bzip2":262,"through":256}],261:[function(require,module,exports){
+},{"./lib/bit_iterator":261,"./lib/bzip2":262,"through":255}],261:[function(require,module,exports){
 var BITMASK = [0, 0x01, 0x03, 0x07, 0x0F, 0x1F, 0x3F, 0x7F, 0xFF];
 
 // returns a function that reads bits.
@@ -35302,7 +35302,7 @@ function writeFileSync (filename, data, options) {
   }
 }
 
-}).call(this,"/src/pnpm/self-installer/node_modules/.pnpm/registry.npmjs.org/write-json-file/2.3.0/node_modules/write-file-atomic/index.js")
+}).call(this,"/home/zoli/src/pnpm/self-installer/node_modules/.pnpm/registry.npmjs.org/write-json-file/2.3.0/node_modules/write-file-atomic/index.js")
 },{"graceful-fs":103,"imurmurhash":135,"path":undefined,"signal-exit":233,"worker_threads":24}],274:[function(require,module,exports){
 'use strict';
 const path = require('path');
@@ -35983,6 +35983,7 @@ function getDefaultVersion () {
   if (nodeMajor < 6) return 'latest-1'
   if (nodeMajor < 8) return 'latest-2'
   if (nodeMajor < 10) return 'latest-3'
+  if (nodeMajor < 12) return 'latest-5'
   return 'latest'
 }
 
